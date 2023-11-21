@@ -1,15 +1,15 @@
-import list_groups
 import subprocess
-import grp
 
 from flask import Flask, jsonify, request
+
+import list_groups
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    return 'Test123'
 
 
 @app.route('/<name>')
@@ -19,15 +19,15 @@ def print_name(name):
 
 @app.route('/api/items', methods=['GET'])
 def get_items():
-    items = [{"name": "Item1", "price": 10}, {"name": "Item2", "price": 15}]  # Example data
+    items = [{"employee": "john", "contracts": 10}, {"employee": "jane", "contracts": 20}]  # example data
     return jsonify(items)
 
 
 @app.route('/api/items', methods=['POST'])
 def add_item():
-    new_item = request.json  # Get data sent by client
-    # Add logic to save this item to your database or data structure
-    return jsonify(new_item), 201  # Returning the created item with a 201 Created status
+    new_item = request.json
+    # put db logic here
+    return jsonify(new_item), 201  # return created status (201)
 
 
 @app.route('/logs', methods=['GET'])
@@ -48,7 +48,8 @@ def get_primary_group():
     if not username:
         return jsonify({'error': 'No username provided'}), 400
     try:
-        output = subprocess.check_output(['/home/chase/PycharmProjects/11.14.23.API/scripts/get_primary_group.sh', username])
+        output = subprocess.check_output(
+            ['/home/chase/PycharmProjects/11.14.23.API/scripts/get_primary_group.sh', username])
         return jsonify({'primary_group': output.decode().strip()})
     except subprocess.CalledProcessError as e:
         return jsonify({'error': 'Error getting primary group'}), 500
