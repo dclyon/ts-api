@@ -1,20 +1,15 @@
 import sys
 
-# add project directory to the sys.path
+# path to the venv
 sys.path.insert(0, '/home/chase/PycharmProjects/11.14.23.API/venv')
 
-#import app
-from app import app as application
-
-import sys
-
-# Path to the directory where app.py is located
+# path to the project directory
 project_home = '/home/chase/PycharmProjects/11.14.23.API/'
+sys.path.insert(1, project_home)
 
-# Path to the virtual environment's site-packages, if you're using a virtual environment
+# path to the venv site-packages
 activate_this = '/home/chase/PycharmProjects/11.14.23.API/venv/lib/python3.10/site-packages'
+sys.path.insert(2, activate_this)
 
-sys.path.insert(0, project_home)
-sys.path.insert(1, activate_this)
-
+# import the app
 from app import app as application

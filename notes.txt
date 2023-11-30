@@ -50,3 +50,12 @@ from app import app as application
 2) export ACCESS_TOKEN='token here'
 3) curl -k -X GET https://localhost:443/protected -H "Authorization: Bearer $ACCESS_TOKEN"
 4) works
+
+Testing primarygroup route w/ jq:
+curl -k -X GET https://localhost:443/primarygroup?user=alfred -H "Authorization: Bearer $ACCESS_TOKEN" | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    33  100    33    0     0   2999      0 --:--:-- --:--:-- --:--:--  3300
+{
+  "primary_group": "apitestgroup"
+}
