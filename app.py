@@ -81,22 +81,25 @@ def get_items():
 def add_item():
     new_item = request.json
     # put db logic here
-    return jsonify(new_item), 201  # return created status (201)
+    return jsonify(new_item), 201  # return created status, 201?
 
 
 @app.route('/logs', methods=['GET'])
+@jwt_required
 def get_logs():
     output = subprocess.check_output(['/home/chase/PycharmProjects/11.14.23.API/scripts/list_logs.sh'])
     return jsonify(output.decode().splitlines())
 
 
 @app.route('/groups', methods=['GET'])
+@jwt_required
 def get_groups():
     groups = list_groups.list_groups()
     return jsonify(groups)
 
 
 @app.route('/primarygroup', methods=['GET'])
+@jwt_required
 def get_primary_group():
     username = request.args.get('user')
     if not username:
@@ -125,6 +128,6 @@ def application(environ, start_response):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)     # if w/ flask, else w/ apache
 else:
     application = app
