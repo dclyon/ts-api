@@ -77,7 +77,7 @@ def get_items():
 
 
 @app.route('/api/items', methods=['POST'])
-@jwt_required
+@jwt_required()
 def add_item():
     new_item = request.json
     # put db logic here
@@ -85,21 +85,21 @@ def add_item():
 
 
 @app.route('/logs', methods=['GET'])
-@jwt_required
+@jwt_required()
 def get_logs():
     output = subprocess.check_output(['/home/chase/PycharmProjects/11.14.23.API/scripts/list_logs.sh'])
     return jsonify(output.decode().splitlines())
 
 
 @app.route('/groups', methods=['GET'])
-@jwt_required
+@jwt_required()
 def get_groups():
     groups = list_groups.list_groups()
     return jsonify(groups)
 
 
 @app.route('/primarygroup', methods=['GET'])
-@jwt_required
+@jwt_required()
 def get_primary_group():
     username = request.args.get('user')
     if not username:
