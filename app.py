@@ -9,7 +9,7 @@ from flask_jwt_extended import JWTManager, create_access_token, create_refresh_t
 import list_groups
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'change-this-secret'
+app.config['JWT_SECRET_KEY'] = 'change-this-secret'  #  TO DO: import secrets and create env variable in /etc/apache2/myapp.conf,
 jwt = JWTManager(app)
 
 # fake DB for testing
