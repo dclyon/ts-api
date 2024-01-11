@@ -129,6 +129,6 @@ def application(environ, start_response):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)     # if w/ flask, else w/ apache
+    app.run(host='0.0.0.0', port=5000)     # added to ensure app is accessible outside container
 else:
     application = app

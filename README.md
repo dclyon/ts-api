@@ -1,6 +1,9 @@
 # ts-api readme
+DOCKER: docker run -p 5000:5000 <docker image>
+
 
 Getting Started:
+
 - From the terminal, enter:
 > curl -k -X POST https://localhost:443/login -H "Content-Type: application/json" -d '{"username":"user1", "password":"password1"}'
 
