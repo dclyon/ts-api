@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, \
     get_jwt_identity
 
-import list_groups
+from scripts import list_groups
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'change-this-secret'  #  TO DO: import secrets and create env variable in /etc/apache2/myapp.conf,

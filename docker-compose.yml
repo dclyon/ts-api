@@ -1,0 +1,18 @@
+version: '3'
+services:
+    app:
+      build:
+        context: .
+        dockerfile: app/Dockerfile-app
+      expose:
+        - 5000
+    apache:
+      build:
+        context: .
+        dockerfile: apache/Dockerfile-apache
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - /etc/ssl/certs:/etc/ssl/certs:ro
+        - /etc/ssl/keys:/etc/ssl/keys:ro
