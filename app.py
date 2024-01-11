@@ -5,25 +5,44 @@ from datetime import timedelta
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, \
     get_jwt_identity
-
+from flask_pymongo import PyMongo
 import list_groups
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'change-this-secret'  #  TO DO: import secrets and create env variable in /etc/apache2/myapp.conf,
+app.config[
+    'JWT_SECRET_KEY'] = 'change-this-secret'  # TO DO: import secrets and create env variable in /etc/apache2/myapp.conf,
+app.config['MONGO_URI'] = 'mongodb://admin:password@mongodb:27017/mongodb'
 jwt = JWTManager(app)
+mongo = PyMongo(app)
 
 # fake DB for testing
 users_db = {
     "user1": {"username": "user1", "password": "password1"},
-
     "user2": {"username": "user2", "password": "password2"},
 }
 
 
 # authenticate user
+# def authenticate(username, password):
+#   user = users_db.get(username, None)
+#  if user and hmac.compare_digest(user['password'], password):
+#     return user
+
+def init_users():  # create mongodb users if there are none
+    if mongo.db.users.count_documents({}) == 0:
+        users = [
+            {"username": "user1", "password": "password1"},
+            {"username": "user2", "password": "password2"}
+        ]
+        mongo.db.users.insert_many(users)
+
+
+init_users()
+
+
 def authenticate(username, password):
-    user = users_db.get(username, None)
-    if user and hmac.compare_digest(user['password'], password):
+    user = mongo.db.users.find_one({"username": username})
+    if user and hmac.compare_digest(user["password"], password):
         return user
 
 
@@ -129,6 +148,6 @@ def application(environ, start_response):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)     # if w/ flask, else w/ apache
+    app.run(debug=True)  # if w/ flask, else w/ apache
 else:
     application = app
