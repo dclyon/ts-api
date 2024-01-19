@@ -1,6 +1,10 @@
 FROM python:3.10-slim
 LABEL authors="chase"
+
 WORKDIR /app
-COPY ./app /app
-RUN pip3 install -r /tmp/requirements.txt
+
+# copy everything in app
+COPY . .
+RUN pip3 install -r requirements.txt
+
 CMD ["python", "app.py"]

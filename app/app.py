@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, \
     get_jwt_identity
 
-from scripts import list_groups
+from scripts.list_groups import list_groups
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'change-this-secret'  #  TO DO: import secrets and create env variable in /etc/apache2/myapp.conf,
@@ -88,14 +88,14 @@ def add_item():
 @app.route('/logs', methods=['GET'])
 @jwt_required()
 def get_logs():
-    output = subprocess.check_output(['/home/chase/PycharmProjects/11.14.23.API/scripts/list_logs.sh'])
+    output = subprocess.check_output(['/app/scripts/list_logs.sh'])
     return jsonify(output.decode().splitlines())
 
 
 @app.route('/groups', methods=['GET'])
 @jwt_required()
 def get_groups():
-    groups = list_groups.list_groups()
+    groups = list_groups()
     return jsonify(groups)
 
 
@@ -107,7 +107,7 @@ def get_primary_group():
         return jsonify({'error': 'No username provided'}), 400
     try:
         output = subprocess.check_output(
-            ['/home/chase/PycharmProjects/11.14.23.API/scripts/get_primary_group.sh', username])
+            ['/app/scripts/get_primary_group.sh', username])
         return jsonify({'primary_group': output.decode().strip()})
     except subprocess.CalledProcessError as e:
         return jsonify({'error': 'Error getting primary group'}), 500
@@ -130,5 +130,4 @@ def application(environ, start_response):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)     # added to ensure app is accessible outside container
-else:
-    application = app
+
