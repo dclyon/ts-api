@@ -18,11 +18,11 @@ First, clone the project repository to your local machine. This repository conta
 
 
 
->git clone https://github.com/dclyon/ts-api.git
+>git clone https://github.com/dclyon/ts-api.git 
 > 
->cd ts-api
-
+> cd ts-api
 2. Switch to the Correct Branch
+>cd ts-api
 
 If you need to switch to a specific branch (e.g., containerize), run the following command:
 
@@ -36,19 +36,12 @@ Navigate to the project root directory (where docker-compose.yml is located) and
 >docker-compose up --build
 
 This command builds the Docker images for the Flask app and Apache server and starts the containers.
-4. Accessing the API
 
-Once the containers are up and running, you can access the API through your web browser or using tools like curl:
-
-    Web Browser: Go to https://localhost (or https://localhost:8443 if a custom HTTPS port is used).
-    Curl Command: You can use a command like curl -k https://localhost to test the API.
-
-Note: The -k flag in curl is used to bypass SSL certificate verification, which might be necessary if you're using self-signed certificates.
-5. Stopping the Containers
+4. Stopping the Containers
 
 To stop the running containers, use the following command:
 
-docker-compose down
+> docker-compose down
 
 
 ## Additional Information
