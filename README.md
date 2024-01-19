@@ -18,22 +18,21 @@ First, clone the project repository to your local machine. This repository conta
 
 
 
->git clone https://github.com/dclyon/ts-api.git 
-> 
-> cd ts-api
+    git clone https://github.com/dclyon/ts-api.git 
+
+    cd ts-api
 2. Switch to the Correct Branch
->cd ts-api
 
 If you need to switch to a specific branch (e.g., containerize), run the following command:
 
->git checkout containerize
+    git checkout containerize
 
 3. Build and Run the Containers
 
 Navigate to the project root directory (where docker-compose.yml is located) and run the following command to build and start the Docker containers:
 
 
->docker-compose up --build
+    docker-compose up --build
 
 This command builds the Docker images for the Flask app and Apache server and starts the containers.
 
@@ -41,7 +40,7 @@ This command builds the Docker images for the Flask app and Apache server and st
 
 To stop the running containers, use the following command:
 
-> docker-compose down
+    docker-compose down
 
 
 ## Additional Information
@@ -53,7 +52,7 @@ The Flask app runs in its own container and is proxied through the Apache server
 ## Using the API
 
 - From the terminal, enter:
-> curl -k -X POST https://localhost:8443/login -H "Content-Type: application/json" -d '{"username":"user1", "password":"password1"}'
+    curl -k -X POST https://localhost:8443/login -H "Content-Type: application/json" -d '{"username":"user1", "password":"password1"}'
 
 command breakdown:
 1. -k -X POST: Specifies to accept insecure connection (to avoid self signed SSL cert err) and that  this is a POST request.
@@ -72,9 +71,13 @@ command breakdown:
 
 ```
 - You can store your access token in an env variable by issuing the following command:
-> export ACCESS_TOKEN='your-access-token'
+
+    export ACCESS_TOKEN='your-access-token'
+
 - The following command is an example of using the curl command to access a protected route:
-> curl -X GET https://localhost:8443/primarygroup?user=alfred -H "Authorization: Bearer $ACCESS_TOKEN"
+
+    curl -X GET https://localhost:8443/primarygroup?user=alfred -H "Authorization: Bearer $ACCESS_TOKEN"
+
 - command breakdown:
 1. -X GET: Specifies that this is a GET request.
 2. .../primarygroup?user=alfred: Indicates the primarygroup route and takes a user argument (alfred is in the example database)
