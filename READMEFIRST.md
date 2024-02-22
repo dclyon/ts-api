@@ -42,6 +42,11 @@ The requirements.txt file includes the following packages:
 
 Running the Application Locally
 
+    Located in the /scripts directory, I have included token.sh which can be used to login to
+    and interact with the API. Note that token.sh must be executed with the source command.
+
+    If you prefer a more manual approach, continue below.
+
     Start the Flask application by running the following command in your terminal:
 
 
